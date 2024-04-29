@@ -1,6 +1,8 @@
 import os
 import cv2
 import numpy as np
+from tkinter import *
+from tkinter import messagebox as MessageBox
 from mediapipe.python.solutions.holistic import Holistic
 from helpers import create_folder, draw_keypoints, mediapipe_detection, save_frames, there_hand
 from constants import FONT, FONT_POS, FONT_SIZE, FRAME_ACTIONS_PATH, ROOT_PATH
@@ -53,8 +55,10 @@ def capture_samples(path, margin_frame=2, min_cant_frames=5):
 
         video.release()
         cv2.destroyAllWindows()
+    
 
 if __name__ == "__main__":
     word_name = input('Ingrese el nombre de la palabra u oración : ')
     word_path = os.path.join(ROOT_PATH, FRAME_ACTIONS_PATH, word_name)
     capture_samples(word_path)
+    MessageBox.showinfo("GUARDADO CON EXITO",word_name )
