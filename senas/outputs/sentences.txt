@@ -1,6 +1,1 @@
-Adios (x2)
-Hola (x5)
-Adios (x3)
-Hola (x2)
-Adios
-Hola
+HOLA

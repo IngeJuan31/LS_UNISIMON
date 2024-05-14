@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+from tqdm import tqdm
 from mediapipe.python.solutions.holistic import Holistic
 from helpers import get_keypoints, insert_keypoints_sequence
 from constants import DATA_PATH, FRAME_ACTIONS_PATH, ROOT_PATH
@@ -11,11 +12,12 @@ def create_keypoints(frames_path, save_path):
     '''
     data = pd.DataFrame([])
     
-    with Holistic() as model_holistic:
+    with Holistic() as model_holistic, tqdm(total=len(os.listdir(frames_path)), desc="Progreso") as pbar:
         for n_sample, sample_name in enumerate(os.listdir(frames_path), 1):
             sample_path = os.path.join(frames_path, sample_name)
             keypoints_sequence = get_keypoints(model_holistic, sample_path)
             data = insert_keypoints_sequence(data, n_sample, keypoints_sequence)
+            pbar.update(1)  # Actualizar la barra de progreso
 
     data.to_hdf(save_path, key="data", mode="w")
 
@@ -29,7 +31,6 @@ if __name__ == "__main__":
         print(f'Creando keypoints de "{word_name}"...')
         create_keypoints(word_path, hdf_path)
         print(f"Keypoints creados!")
-            
     # GENERAR SOLO DE UNA PALABRA
     #word_name = "adios"
     #word_path = os.path.join(words_path, word_name)

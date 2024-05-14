@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.layers import LSTM, Dense
 from constants import LENGTH_KEYPOINTS, MAX_LENGTH_FRAMES
 
-NUM_EPOCH = 110
+NUM_EPOCH = 1500
 
 def get_model(output_lenght: int):
     model = Sequential()
